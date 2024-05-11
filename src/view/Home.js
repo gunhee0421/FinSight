@@ -1,11 +1,17 @@
-import { useState, Eff } from "react";
-import getTotal from "../api/getFinacialStatement"
+import { useState, useEffect } from "react";
+import getFinacialNumber from "../api/getFinacialNumber";
+import getFinacialStatement from "../api/getFinacialStatement";
+import { Text } from "react-native";
 
-const Home= () => {
-  let obj = getTotal("00126380");
+const Home= (props) => {
+  
+  const code = getFinacialNumber(props.finacial);
+  const data = getFinacialStatement(code);
 
   return(
-    <></>
+    <>
+    {code}
+    </>
   );
 }
 
