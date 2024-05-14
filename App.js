@@ -5,7 +5,7 @@ import Home from './src/view/Home';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Home />
+      <Home finacial="삼성전자"/>
     </View>
   );
 }
