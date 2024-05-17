@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import getFinacialNumber from "../api/getFinacialNumber";
 import getFinacialStatement from "../api/getFinacialStatement";
+import { Text, View } from "react-native";
 
 // 처음 홈 화면 입니다.
 const Home= (props) => {
@@ -23,18 +24,18 @@ const Home= (props) => {
   }, [code])
 
   return (
-    <div>
+    <View>
       {code ? (
-        <p>기업 고유번호: {code}</p>
+        <Text>기업 고유번호: {code}</Text>
       ) : (
-        <p>데이터 로딩 중...</p>
+        <Text>데이터 로딩 중...</Text>
       )}
       {status ? (
-        <p>총 매출액: {status?.list[0]?.thstrm_amount}</p>
+        <Text>총 매출액: {status?.list[0]?.thstrm_amount}</Text>
       ) : (
-        <p>status 로딩중</p>
+        <Text>status 로딩중</Text>
       )}
-    </div>
+    </View>
   );
 };
 
