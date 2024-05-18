@@ -6,4 +6,4 @@ export const proxy = `https://proxy.cors.sh/`;
 
 // 년도를 받는 데이터 입니다.
 const today = new Date();
-export const day = today.getFullYear()-1;
+export const day = today.getFullYear() - 1;
