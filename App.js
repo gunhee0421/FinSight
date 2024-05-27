@@ -19,6 +19,7 @@ export default function App() {
   return (
     <NavigationContainer theme={navTheme}>
       <Stack.Navigator>
+        <Stack.Screen name="home" component={Home} />
         <Stack.Screen name="search" component={Search}/>
       </Stack.Navigator>
     </NavigationContainer>

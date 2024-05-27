@@ -8,8 +8,6 @@ const url = `https://opendart.fss.or.kr/api/fnlttSinglAcnt.json?`;
 const getFinacialStatement = async (company) => {
   const URL = `${url}crtfc_key=${key}&corp_code=${company}&bsns_year=${day}&reprt_code=11011`;
   try{
-    let response;
-
     if (Platform.OS=="web"){
       response = await axios.get(`${proxy}${URL}`, {
         headers: {

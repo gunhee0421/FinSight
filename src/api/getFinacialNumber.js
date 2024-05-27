@@ -15,7 +15,7 @@ const getFinacialNumber = async (finacialName) => {
       const response = await axios(
         Platform.OS === 'web'
           ? `http://localhost:8081/assets/CORPCODE.xml`
-          : `http://10.105.0.245:8081/assets/CORPCODE.xml`
+          : `http://192.168.45.176:8081/assets/CORPCODE.xml`
       );
 
       const data = await new Promise((resolve, reject) => 
@@ -33,7 +33,27 @@ const getFinacialNumber = async (finacialName) => {
           resolve(code ? code[0] : null);
         });
       });
-      return data;
+
+      const sortCode = await new Promise((resolve, reject) => 
+        {
+          xml2js.parseString(response.data, (error, res) => {
+          if(error){
+            reject(error);
+          }
+          const json = JSON.parse(JSON.stringify(res));
+
+          const code = json?.result?.list
+          ?.filter(item => item.corp_name[0] === finacialName)
+          .map(item => item.stock_code[0])
+          
+          resolve(code ? code[0] : null);
+        });
+      });
+      
+      const result = [data, sortCode];
+      console.log(result);
+
+      return result;
 
     } catch(error) {
       console.log(error);

@@ -1,33 +1,35 @@
-import styled from "styled-components";
+import styled from "styled-components/native";
 
-const ULComponent = styled.ul`
-  list-style-type: none;
-  padding: 0px 10px;
-  margin: 0px;
-  border-bottom-width: 10px;
-  border-bottom-style: solid;
-  border-bottom-color: rgb(240, 240, 240);
+const NavigationView = styled.View`
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 30px;
+  position: relative;
+  flex-direction: row;
 `
-const LIComponent = styled.li`
-  display: inline-block;
-  font-size: 16px;
-  color: ${({index, value}) => (index == value ? "black" : "gray")};
-  opacity: 0.8;
-  margin-left: 20px;
-  padding: 14px;
-  font-weight: ${({index, value}) => (index == value ? "bold" : "normal")};
-  border-bottom: ${({index, value}) => (index == value ? "1px solid black" : "")};
+const NavigationText = styled.Text`
+  color: #666565;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  position: relative;
+  width: fit-content;
+  border-bottom-color: ${props => props.index == props.value ? "black" : ""};
+  border-bottom-width: ${props => props.index == props.value ? "3px" : ""};
+  border-bottom-style: ${props => props.index == props.value ? "solid" : ""};
 `
-
 
 const Navigation = ({index, setIndex}) => {
 
   return(
-    <ULComponent>
-      <LIComponent value={1} index={index} onClick={() => setIndex(1)}>종목 정보</LIComponent>
-      <LIComponent value={2} index={index} onClick={() => setIndex(2)}>종목 뉴스</LIComponent>
-      <LIComponent value={3} index={index} onClick={() => setIndex(3)}>세계 지수</LIComponent>
-    </ULComponent>
+    <NavigationView>
+      <NavigationText index={index} value={1} onPress={() => setIndex(1)}>투자 정보</NavigationText>
+      <NavigationText index={index} value={2} onPress={() => setIndex(2)}>투자 뉴스</NavigationText>
+      <NavigationText index={index} value={3} onPress={() => setIndex(3)}>투자 시장</NavigationText>
+    </NavigationView>
   );
 }
 
