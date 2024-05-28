@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { useContext, useEffect, useState } from "react";
-import Navigation from "../components/Navigation";
+import Navi from "../components/Navigation";
 import {SearchView, HeaderView, Reactangle, HeaderText, HeaderNumber, BodyView, LoadingView} from "../view/SerchStyle";
 import { ActivityIndicator, ScrollView } from "react-native";
 import FinancialPage from "../components/FinancialPage";
@@ -15,11 +15,10 @@ const Header = ({title, number, percent}) => {
   return(
       <HeaderView>
         <HeaderText>{title}</HeaderText>
-        <HeaderNumber percent={percent}>{title}</HeaderNumber>
+        <HeaderNumber percent={percent}>{text}</HeaderNumber>
       </HeaderView>
   )
-}
-const Stack = createStackNavigator();
+};
 
 const Search = ({navigation}) => {
   const [index, setIndex] = useState(1);
@@ -74,7 +73,7 @@ const Search = ({navigation}) => {
       {state != null && curPrice != null ? 
       <SearchView>
         <HeaderView>
-          <Navigation index={index} setIndex={setIndex} />
+          <Navi index={index} setIndex={setIndex} />
           <Reactangle source={require("../../assets/image/Rectangle.png")} alt="reactangle" />
         </HeaderView>
         {index == 1 && <FinancialPage crop={crop} state={state} price={curPrice} />}

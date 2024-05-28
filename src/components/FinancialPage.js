@@ -21,7 +21,7 @@ import getStockNumber from "../api/getStockNumber";
 import BigNumber from "bignumber.js";
 import FormatBinNumber from "./FormatBinNumber";
 import Info from "./Info";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
 import { Platform } from "react-native";
 
 
@@ -33,10 +33,12 @@ const FinancialPage = ({ crop, state, price }) => {
       <Card>
         <CardTop>
           <CardTitle>{title}</CardTitle>
-          <Icon source={require("../../assets/image/Icon2.png")} alt="icon" onClick={()=>{
+          <TouchableOpacity onPress={() => {
             setClick(!click);
             setTitle(title);
-          }}/>
+          }}>
+            <Icon source={require("../../assets/image/Icon2.png")} alt="icon"/>
+          </TouchableOpacity>
         </CardTop>
         <CardNumber>{value}</CardNumber>
       </Card>
@@ -119,10 +121,12 @@ const FinancialPage = ({ crop, state, price }) => {
         <BodyView>
           <BodyTitle>
             <BodyTitleText>{title != null ? title : "투자 지표"}</BodyTitleText>
-            <Icon source={require("../../assets/image/Icon.png")} alt="icon" onClick={()=>{
+            <TouchableOpacity onPress={() => {
               setClick(!click);
               setTitle(null);
-            }} />
+            }}>
+              <Icon source={require("../../assets/image/Icon.png")} alt="icon" />
+            </TouchableOpacity>
           </BodyTitle>
           { !click ? <CardList>
             <CardListOne>

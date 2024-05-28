@@ -17,12 +17,10 @@ const NavigationText = styled.Text`
   margin-top: -1px;
   position: relative;
   width: fit-content;
-  border-bottom-color: ${props => props.index == props.value ? "black" : ""};
-  border-bottom-width: ${props => props.index == props.value ? "3px" : ""};
-  border-bottom-style: ${props => props.index == props.value ? "solid" : ""};
+  color: ${props => props.index == props.value ? "#979797" : "black"};
 `
 
-const Navigation = ({index, setIndex}) => {
+const Navi = ({index, setIndex}) => {
 
   return(
     <NavigationView>
@@ -33,4 +31,4 @@ const Navigation = ({index, setIndex}) => {
   );
 }
 
-export default Navigation;
+export default Navi;
