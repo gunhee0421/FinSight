@@ -1,42 +1,56 @@
-import { useState, useEffect } from "react";
-import getFinacialNumber from "../api/getFinacialNumber";
-import getFinacialStatement from "../api/getFinacialStatement";
+import { TouchableOpacity } from "react-native";
+import styled from "styled-components";
+
+const ViewSty = styled.View`
+  display: flex;
+  height: 100%;
+  padding: 0px 41px;
+  justify-content: center;
+
+  gap: 10px;
+  background-color: #fff;
+`;
+
+const SearchContainer = styled.View`
+  position: relative;
+  width: 315px;
+  height: 55px;
+`;
+const Search = styled.TextInput`
+  width: 315px;
+  height: 55px;
+  background-color: #89d3fa;
+  border-radius: 20px;
+  padding-left: 30px;
+  font-size: 16px;
+`;
+
+const SearchImg = styled.Image`
+  width: 17.6px;
+  height: 17.575px;
+`;
+
+const TouchableImg = styled(TouchableOpacity)`
+  position: absolute;
+  right: 23.4px;
+  top: 18px;
+`;
 
 // 처음 홈 화면 입니다.
-const Home= (props) => {
-  const [code, setCode] = useState(null);       // code에 기업의 고유번호가 존재합니다.
-  const [status, setStatus] = useState(null);   // status에 기업의 재무재표가 존재합니다. ex)이 부분은 삭제해도 무방합니다. 홈이 아닌 검색 이후의 화면에서 사용할 데이터 입니다.
-
-
-  useEffect(()=>{
-    const getData = async() => {
-      const data = await getFinacialNumber(props.finacial);
-
-      setCode(data);
-
-      if (code !== null) {
-        const statusData = await getFinacialStatement(code);
-        setStatus(statusData);
-      }
-    }
-    getData();
-  }, [code])
-
+const Home = () => {
   return (
-    <div>
-      {code ? (
-        <p>기업 고유번호: {code}</p>
-      ) : (
-        <p>데이터 로딩 중...</p>
-      )}
-      {status ? (
-        <p>총 매출액: {status?.list[0]?.thstrm_amount}</p>
-      ) : (
-        <p>status 로딩중</p>
-      )}
-    </div>
+    <ViewSty>
+      <SearchContainer>
+        <Search
+          placeholder="기업명을 입력하세요..."
+          placeholderTextColor="#3498db"
+        />
+        <TouchableImg>
+          <SearchImg source={require("../../assets/search.png")} />
+        </TouchableImg>
+      </SearchContainer>
+    </ViewSty>
   );
 };
-
 
 export default Home;
