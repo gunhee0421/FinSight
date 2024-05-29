@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import {
   BodyView,
   BodyTitle,
@@ -50,12 +50,15 @@ const FinancialPage = ({ crop, state, price }) => {
 
   const [totalMoney, setTotalMoney] = useState(null);
   const [netIncon, setNetIncon] = useState(null);
+  const [allMoney, setAllMoney] = useState(null);
+  const [gainMoney, setGainMoney] = useState(null);
   const [per, setPER] = useState(null);
   const [pbr, setPBR] = useState(null);
   const [eps, setEPS] = useState(null);
   const [roe, setROE] = useState(null);
   const [STOCK, setSTOCK] = useState(null);
   const [percent, setPercent] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async() => {
@@ -77,6 +80,12 @@ const FinancialPage = ({ crop, state, price }) => {
       // 4. PBR
       const netWorth = state?.list[8]?.thstrm_amount.replace(/,/g, ''); // 자본총계(순자산)
       const stockPbr = BigTotalMoney.dividedBy(netWorth);
+
+      // 자본총계 allMoney
+      setAllMoney(FormatBinNumber(netWorth));
+
+      // 매출액
+      setGainMoney(FormatBinNumber(state?.list[9]?.thstrm_amount.replace(/,/g, '')))
 
       // 5. EPS
       const istc_totqy = StockNumberData?.list[0]?.istc_totqy.replace(/,/g, ''); 
@@ -132,6 +141,10 @@ const FinancialPage = ({ crop, state, price }) => {
             <CardListOne>
               {totalMoney != null && <Cards title="시가총액" value={totalMoney} />}
               {netIncon != null && <Cards title="당기순이익" value={netIncon} />}
+            </CardListOne>
+            <CardListOne>
+              {allMoney != null && <Cards title="자본총계" value={allMoney} />}
+              {gainMoney != null && <Cards title="매출액" value={gainMoney} />}
             </CardListOne>
             <CardListOne>
               {per != null && <Cards title="PER" value={per} />}

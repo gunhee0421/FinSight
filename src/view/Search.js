@@ -58,7 +58,7 @@ const Search = ({navigation}) => {
   useEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        height: 100,
+        height: 120,
         borderBottomWidth: 0,
         shadowOpacity: 0,
         elevation: 0,

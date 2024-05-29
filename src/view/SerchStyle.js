@@ -19,12 +19,12 @@ export const HeaderView = styled.View`
   gap: 14px;
   position: relative;
   width: 100%;
+  margin-bottom: 10px;
 `;
 export const HeaderText = styled.Text`
   color: #979797;
   font-size: 14px;
   font-weight: 700;
-  height: 15px;
   letter-spacing: 0;
   line-height: normal;
   margin-top: -1px;
@@ -37,7 +37,6 @@ export const HeaderNumber = styled.Text`
   color: ${props => props.percent > 0 ? "red" : "#1400ff"};
   font-size: 18px;
   font-weight: 700;
-  height: 35px;
   letter-spacing: 0;
   line-height: normal;
   position: relative;
@@ -52,7 +51,7 @@ export const Reactangle = styled.Image`
 `
 export const BodyView = styled.View`
   display: flex;
-  height: 402px;
+  height: 530px;
   padding: 17px 0px;
   flex-direction: column;
   justify-content: space-between;
@@ -151,6 +150,7 @@ export const FooterView = styled.View`
   display: flex;
   height: 158px;
   padding: 21px 25px;
+  margin-bottom: 40px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -190,17 +190,17 @@ export const FooterBoxText = styled.Text`
   line-height: normal;
 `
 export const InfoBox = styled.View`
-  height: 241px;
-  width: 294px;
+  height: 70%;
+  width: 70%;
   flex-shrink: 0;
   background-color: #F2F2F2;
   border-radius: 15px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 20px;
 `
 export const InfoText = styled.Text`
-  width: 244px;
-  height: 200px;
+  width: 80%;
   flex-shrink: 0;
   color: #525252;
   font-family: Inter;
@@ -208,6 +208,7 @@ export const InfoText = styled.Text`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  margin: 10px;
 `
 export const LoadingView = styled.View`
   width: 100%;
