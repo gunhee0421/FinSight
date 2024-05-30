@@ -1,12 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { useContext, useEffect, useState } from "react";
-import Navi from "../components/Navigation";
-import {SearchView, HeaderView, Reactangle, HeaderText, HeaderNumber, BodyView, LoadingView} from "../view/SerchStyle";
+import {SearchView, HeaderView, Reactangle, HeaderText, HeaderNumber, BodyView, LoadingView} from "./SerchStyle";
 import { ActivityIndicator, ScrollView } from "react-native";
-import FinancialPage from "../components/FinancialPage";
-import getFinacialNumber from "../api/getFinacialNumber";
-import getFinacialStatement from "../api/getFinacialStatement";
-import getCurPrice from "../api/getCurPrice";
+import FinancialPage from "../../components/Serch/Financial/FinancialPage";
+import getFinacialNumber from "../../api/getFinacialNumber";
+import getFinacialStatement from "../../api/getFinacialStatement";
+import getCurPrice from "../../api/getCurPrice";
+import Nav from "../../components/Serch/Financial/Navigation";
 
 const Header = ({title, number, percent}) => {
   const text = number.toString()
@@ -73,8 +73,8 @@ const Search = ({navigation}) => {
       {state != null && curPrice != null ? 
       <SearchView>
         <HeaderView>
-          <Navi index={index} setIndex={setIndex} />
-          <Reactangle source={require("../../assets/image/Rectangle.png")} alt="reactangle" />
+          <Nav index={index} setIndex={setIndex} />
+          <Reactangle source={require("../../../assets/image/Rectangle.png")} alt="reactangle" />
         </HeaderView>
         {index == 1 && <FinancialPage crop={crop} state={state} price={curPrice} />}
       </SearchView> : <LoadingView><ActivityIndicator size="large" color="red"/></LoadingView>}

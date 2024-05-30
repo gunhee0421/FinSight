@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './src/view/Home';
-import Search from './src/view/Search';
 import {NavigationContainer, DefaultTheme} from "@react-navigation/native"
 import { createStackNavigator } from '@react-navigation/stack';
+import { SearchView } from './src/view/Serch/SerchStyle';
+import Search from './src/view/Serch/Search';
 
 const Stack = createStackNavigator();
 

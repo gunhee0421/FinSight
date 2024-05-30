@@ -16,8 +16,8 @@ import {
   FooterText,
   Reactangle,
   LoadingView
-} from "../view/SerchStyle";
-import getStockNumber from "../api/getStockNumber";
+} from "../../../view/Serch/SerchStyle";
+import getStockNumber from "../../../api/getStockNumber";
 import BigNumber from "bignumber.js";
 import FormatBinNumber from "./FormatBinNumber";
 import Info from "./Info";
@@ -37,7 +37,7 @@ const FinancialPage = ({ crop, state, price }) => {
             setClick(!click);
             setTitle(title);
           }}>
-            <Icon source={require("../../assets/image/Icon2.png")} alt="icon"/>
+            <Icon source={require("../../../../assets/image/Icon2.png")} alt="icon"/>
           </TouchableOpacity>
         </CardTop>
         <CardNumber>{value}</CardNumber>
@@ -134,7 +134,7 @@ const FinancialPage = ({ crop, state, price }) => {
               setClick(!click);
               setTitle(null);
             }}>
-              <Icon source={require("../../assets/image/Icon.png")} alt="icon" />
+              <Icon source={require("../../../../assets/image/Icon.png")} alt="icon" />
             </TouchableOpacity>
           </BodyTitle>
           { !click ? <CardList>
@@ -157,7 +157,7 @@ const FinancialPage = ({ crop, state, price }) => {
           </CardList> : <Info title={title} />}
 
           <Reactangle
-            source={require("../../assets/image/Rectangle.png")}
+            source={require("../../../../assets/image/Rectangle.png")}
             alt="reactangle"
           />
         </BodyView>

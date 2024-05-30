@@ -197,7 +197,7 @@ export const InfoBox = styled.View`
   border-radius: 15px;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 20px;
+  padding-top: 2cqi;
 `
 export const InfoText = styled.Text`
   width: 80%;
