@@ -1,12 +1,14 @@
-import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect } from "react";
+import { TouchableOpacity, Alert } from "react-native";
 import styled from "styled-components";
+import getFinacialNumber from "../api/getFinacialNumber";
 
 const ViewSty = styled.View`
   display: flex;
   height: 100%;
   padding: 0px 41px;
   justify-content: center;
-
   gap: 10px;
   background-color: #fff;
 `;
@@ -37,15 +39,47 @@ const TouchableImg = styled(TouchableOpacity)`
 `;
 
 // 처음 홈 화면 입니다.
-const Home = () => {
+const Home = (props) => {
+  const [code, setCode] = useState(null);
+  const [company, setCompany] = useState("");
+  const navigation = useNavigation();
+
+  const handleSearch = () => {
+    if (!company.trim()) {
+      Alert.alert("기업명을 입력하세요");
+      return;
+    }
+    navigation.navigate("Company", { CompanyName: company, CompanyCode: code });
+  };
+
+  const handleKeyPress = () => {
+    if (!company.trim()) {
+      Alert.alert("기업명을 입력하세요");
+      return;
+    }
+    handleSearch();
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getFinacialNumber(props.finacial);
+
+      setCode(data);
+    };
+    getData();
+  }, [code]);
+
   return (
     <ViewSty>
       <SearchContainer>
         <Search
           placeholder="기업명을 입력하세요..."
           placeholderTextColor="#3498db"
+          value={company}
+          onChangeText={setCompany}
+          onSubmitEditing={handleKeyPress}
         />
-        <TouchableImg>
+        <TouchableImg onPress={handleSearch}>
           <SearchImg source={require("../../assets/search.png")} />
         </TouchableImg>
       </SearchContainer>
