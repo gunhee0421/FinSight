@@ -20,13 +20,13 @@ const Header = ({title, number, percent}) => {
   )
 };
 
-const Search = ({navigation}) => {
+const Search = ({navigation, route}) => {
   const [index, setIndex] = useState(1);
   const [crop, setCrop] = useState(null);
   const [state, setState] = useState(null);
   const [curPrice , setCurPrice] = useState(null);
 
-  const company = "삼성전자";
+  const {company} = route.params;
 
   useEffect(() => {
     const fetchData = async() => {

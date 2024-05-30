@@ -1,8 +1,8 @@
-import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from "react";
 import { TouchableOpacity, Alert } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import getFinacialNumber from "../api/getFinacialNumber";
+import Search from "./Serch/Search";
 
 const ViewSty = styled.View`
   display: flex;
@@ -18,7 +18,7 @@ const SearchContainer = styled.View`
   width: 315px;
   height: 55px;
 `;
-const Search = styled.TextInput`
+const SearchText = styled.TextInput`
   width: 315px;
   height: 55px;
   background-color: #89d3fa;
@@ -39,40 +39,51 @@ const TouchableImg = styled(TouchableOpacity)`
 `;
 
 // 처음 홈 화면 입니다.
-const Home = (props) => {
+const Home = ({navigation}) => {
   const [code, setCode] = useState(null);
   const [company, setCompany] = useState("");
-  const navigation = useNavigation();
+  const [enter, setEnter] = useState(false);
 
   const handleSearch = () => {
     if (!company.trim()) {
       Alert.alert("기업명을 입력하세요");
       return;
+    } else{
+      setEnter(true);
     }
-    navigation.navigate("Company", { CompanyName: company, CompanyCode: code });
   };
 
   const handleKeyPress = () => {
     if (!company.trim()) {
       Alert.alert("기업명을 입력하세요");
       return;
+    } else{
+      handleSearch();
     }
-    handleSearch();
   };
 
   useEffect(() => {
-    const getData = async () => {
-      const data = await getFinacialNumber(props.finacial);
+    const fetchData = async() => {
+      const data = await getFinacialNumber(company);
 
       setCode(data);
-    };
-    getData();
-  }, [code]);
+    }
+
+    if(enter) {
+      fetchData();
+    }
+  }, [enter])
+
+  useEffect(() => {
+    if(code != null){
+      navigation.navigate("Search", {company: code});
+    }
+  }, [code])
 
   return (
     <ViewSty>
       <SearchContainer>
-        <Search
+        <SearchText
           placeholder="기업명을 입력하세요..."
           placeholderTextColor="#3498db"
           value={company}
