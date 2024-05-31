@@ -29,11 +29,8 @@ const Search = ({navigation, route}) => {
   const {company} = route.params;
 
   useEffect(() => {
-    const fetchData = async() => {
-      const cropData = await getFinacialNumber(company);
-      setCrop(cropData);
-    }
-    fetchData();
+    list = [company[1], company[2]]
+    setCrop(list);
   }, []);
 
   useEffect(() => {
@@ -64,7 +61,7 @@ const Search = ({navigation, route}) => {
         elevation: 0,
       },
       headerTitleAlign: 'center',
-      headerTitle: () => (curPrice != null ? <Header title={company} number={`${curPrice[0]}원\n${curPrice[1]}%`} percent={curPrice[1]}/> : null),
+      headerTitle: () => (curPrice != null ? <Header title={company[0]} number={`${curPrice[0]}원\n${curPrice[1]}%`} percent={curPrice[1]}/> : null),
   })
   }, [navigation, curPrice])
 

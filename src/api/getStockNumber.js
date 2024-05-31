@@ -18,7 +18,7 @@ const getStockNumber = async(crop) => {
     }
     
     const json = await response.data;
-    console.log(json);
+    console.log("stockNumber: ", json);
 
     return json;
     

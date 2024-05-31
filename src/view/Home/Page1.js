@@ -2,19 +2,19 @@ import { ViewSty, GView, TextG, TextSty, Rec, SkipText } from "./PageStyle";
 import { View, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import Button from "../component/Button";
+import Button from "../../components/Button";
 
-const Page3 = ({ navigation }) => {
+const Page1 = ({ navigation }) => {
   const [visited, setVisited] = useState(false);
 
   useEffect(() => {
     const checkVisited = async () => {
-      const hasVisited = await AsyncStorage.getItem("page3Visited");
+      const hasVisited = await AsyncStorage.getItem("page1Visited");
       if (hasVisited) {
         setVisited(true);
-        navigation.navigate("Home");
+        navigation.navigate("page2", {screen: "Page2"});
       } else {
-        await AsyncStorage.setItem("page3Visited", "true");
+        await AsyncStorage.setItem("page1Visited", "true");
       }
     };
     checkVisited();
@@ -28,33 +28,33 @@ const Page3 = ({ navigation }) => {
     <ViewSty>
       <GView>
         <TextG>
-          <TextSty>기업과</TextSty>
+          <TextSty>초보자도</TextSty>
           <Image
-            source={require("../../assets/building.png")}
-            style={{ width: 35, height: 38 }}
-          />
-        </TextG>
-        <TextG>
-          <Image
-            source={require("../../assets/Red-heart.gif")}
+            source={require("../../../assets/person.png")}
             style={{ width: 45, height: 45 }}
           />
-          <TextSty>관련한</TextSty>
         </TextG>
         <TextG>
-          <TextSty>뉴스 검색까지!</TextSty>
           <Image
-            source={require("../../assets/news.png")}
-            style={{ width: 48, height: 48 }}
+            source={require("../../../assets/easy.png")}
+            style={{ width: 42, height: 42 }}
+          />
+          <TextSty>쉽게 알아가는</TextSty>
+        </TextG>
+        <TextG>
+          <TextSty>주식 정보</TextSty>
+          <Image
+            source={require("../../../assets/stock.png")}
+            style={{ width: 50, height: 50, marginLeft: 5 }}
           />
         </TextG>
       </GView>
       <Image
-        source={require("../../assets/Star-struck.gif")}
+        source={require("../../../assets/Grin.gif")}
         style={{
           width: 120,
-          height: 118,
-          transform: "rotate(18deg)",
+          height: 116,
+          transform: "rotate(17deg)",
           marginLeft: 160,
           marginTop: 30,
         }}
@@ -67,17 +67,17 @@ const Page3 = ({ navigation }) => {
         }}
       >
         <View style={{ flexDirection: "row" }}>
-          <Rec />
-          <Rec />
           <Rec style={{ backgroundColor: "#0A265B" }} />
+          <Rec />
+          <Rec />
         </View>
-        <Button title="시작하기" onPress={() => navigation.navigate("Home")} />
+        <Button title="다음" onPress={() => navigation.navigate("page2", {screen: "Page2"})} />
         <TouchableOpacity>
-          <SkipText onPress={() => navigation.navigate("Home")}>Skip</SkipText>
+          <SkipText onPress={() => navigation.navigate("home", {screen: "Home"})}>Skip</SkipText>
         </TouchableOpacity>
       </View>
     </ViewSty>
   );
 };
 
-export default Page3;
+export default Page1;

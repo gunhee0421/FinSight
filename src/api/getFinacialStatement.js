@@ -20,7 +20,7 @@ const getFinacialStatement = async (company) => {
 
     
     const json = await response.data;
-    console.log(json);
+    console.log("finacialState: ", json);
 
     return json;
     

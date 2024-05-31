@@ -21,7 +21,7 @@ const getCurPrice = async(sortCode) => {
 
     
     const json = await response.data;
-    console.log(json);
+    console.log("curPirce: ", json);
 
     return json;
     

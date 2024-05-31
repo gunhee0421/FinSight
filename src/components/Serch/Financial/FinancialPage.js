@@ -64,7 +64,14 @@ const FinancialPage = ({ crop, state, price }) => {
     const fetchData = async() => {
       // 1. 시가 총액
       const StockNumberData = await getStockNumber(crop[0]);
-      const totalStocksString = StockNumberData?.list[2]?.istc_totqy.replace(/,/g, ''); // 발행 총 주식
+      let totalStocksString;
+      if (StockNumberData?.list[1]?.se == "우선주"){
+        totalStocksString = StockNumberData?.list[2]?.istc_totqy.replace(/,/g, ''); // 발행 총 주식
+      } else{
+        totalStocksString = StockNumberData?.list[0]?.istc_totqy.replace(/,/g, ''); // 발행 총 주식
+
+      }
+
       const n1 = new BigNumber(totalStocksString);
       const n2 = new BigNumber(parseInt(price));
       const value = n1.multipliedBy(n2);

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { TouchableOpacity, Alert } from "react-native";
+import { TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
-import getFinacialNumber from "../api/getFinacialNumber";
-import Search from "./Serch/Search";
+import getFinacialNumber from "../../api/getFinacialNumber";
+import Search from "../Serch/Search";
+import { LoadingView } from "../Serch/SerchStyle";
 
 const ViewSty = styled.View`
   display: flex;
@@ -76,13 +77,15 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     if(code != null){
-      navigation.navigate("Search", {company: code});
+      list = [company, code[0], code[1]];
+
+      navigation.navigate("search", {screen: "Search", company: list});
     }
   }, [code])
 
   return (
     <ViewSty>
-      <SearchContainer>
+      {!enter ? <SearchContainer>
         <SearchText
           placeholder="기업명을 입력하세요..."
           placeholderTextColor="#3498db"
@@ -91,9 +94,9 @@ const Home = ({navigation}) => {
           onSubmitEditing={handleKeyPress}
         />
         <TouchableImg onPress={handleSearch}>
-          <SearchImg source={require("../../assets/search.png")} />
+          <SearchImg source={require("../../../assets/search.png")} />
         </TouchableImg>
-      </SearchContainer>
+      </SearchContainer> : <LoadingView><ActivityIndicator size="large" color="red" /></LoadingView>}
     </ViewSty>
   );
 };
