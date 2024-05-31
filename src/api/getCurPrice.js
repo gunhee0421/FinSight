@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { OpenKey, sixDay, proxy } from "./API";
 import { Platform } from "react-native";
 
-
+let response
 const url = `https://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo?serviceKey=`;
 
 const getCurPrice = async(sortCode) => {

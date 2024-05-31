@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect } from "react"
 import { key, proxy, day } from "./API";
 import { Platform } from "react-native";
-
+let response
 const url = `https://opendart.fss.or.kr/api/stockTotqySttus.json?crtfc_key=`;
 const getStockNumber = async(crop) => {
   const URL = `${url}${key}&corp_code=${crop}&bsns_year=${day}&reprt_code=11011`

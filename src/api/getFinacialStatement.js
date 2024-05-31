@@ -1,7 +1,7 @@
 import axios from "axios";
 import {key, proxy, day} from "./API";
 import { Platform } from "react-native";
-
+let response
 const url = `https://opendart.fss.or.kr/api/fnlttSinglAcnt.json?`;
 
 // api -> json : dart api에서 회사의 고유번호로 특정 회사의 특정 년도 재무재표 데이터를 가져옴

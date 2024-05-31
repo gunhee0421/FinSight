@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Dimensions, Text } from 'react-native';
 import moment from 'moment';
 import axios from 'axios';
 import ToggleButton from './ToggleButton';
 import LoadingIndicator from './LoadingIndicator';
 import Chart from './chart';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const ExchangeRate = () => {
     const [exchangeData, setExchangeData] = useState([]);
@@ -95,7 +98,7 @@ const ExchangeRate = () => {
 
                 if (rows.length > 0) {
                     // 데이터 샘플링 및 유효성 검사
-                    const step = Math.ceil(rows.length / 100); // 100개의 데이터 포인트만 표시
+                    const step = Math.ceil(rows.length / 50); // 50개의 데이터 포인트만 표시
                     const sampledRows = sampleData(rows, step);
                     const dataValues = sampledRows.map((row) => {
                         const value = parseFloat(row.DATA_VALUE);
@@ -135,19 +138,20 @@ const ExchangeRate = () => {
     const displayedDates = date.map((d, index) => (index % 10 === 0 ? d : ''));
 
     return (
-        <ScrollView horizontal>
+        <ScrollView>
             <View style={styles.container}>
-                <View style={styles.buttonContainer}>
-                    <ToggleButton onPress={() => setShowExchange(prev => !prev)}>Toggle Exchange</ToggleButton>
-                    <ToggleButton onPress={() => setShowKospi(prev => !prev)}>Toggle Kospi</ToggleButton>
-                    <ToggleButton onPress={() => setShowKosdaq(prev => !prev)}>Toggle Kosdaq</ToggleButton>
-                    <ToggleButton onPress={() => setShowJpy(prev => !prev)}>Toggle JPY</ToggleButton>
-                    <ToggleButton onPress={() => setShowEur(prev => !prev)}>Toggle EUR</ToggleButton>
+                <View style={styles.buttonRow}>
+                    <ToggleButton onPress={() => setShowExchange(prev => !prev)} style={styles.button}>Toggle Exchange</ToggleButton>
+                    <ToggleButton onPress={() => setShowKospi(prev => !prev)} style={styles.button}>Toggle Kospi</ToggleButton>
+                </View>
+                <View style={styles.buttonRow}>
+                    <ToggleButton onPress={() => setShowKosdaq(prev => !prev)} style={styles.button}>Toggle Kosdaq</ToggleButton>
+                    <ToggleButton onPress={() => setShowJpy(prev => !prev)} style={styles.button}>Toggle JPY</ToggleButton>
+                    <ToggleButton onPress={() => setShowEur(prev => !prev)} style={styles.button}>Toggle EUR</ToggleButton>
                 </View>
                 {loading ? (
                     <LoadingIndicator />
                 ) : (
-                    //차트 데이터가 로드 된 후에 차트를 로드해야지 오류가 발생하지 않기때문에 추가한 코드
                     exchangeData.length > 0 && kospiData.length > 0 && kosdaqData.length > 0 && jpyData.length > 0 && eurData.length > 0 ? (
                         <Chart
                             labels={displayedDates}
@@ -196,24 +200,24 @@ const ExchangeRate = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
+        padding: windowWidth * 0.05,
     },
-    buttonContainer: {
+    buttonRow: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        marginBottom: 20,
+        justifyContent: 'space-around',
+        marginBottom: windowHeight * 0.02,
     },
     button: {
         backgroundColor: '#3F3F3F',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        margin: 5,
+        paddingVertical: windowHeight * 0.015,
+        paddingHorizontal: windowWidth * 0.1,
         borderRadius: 5,
+        flex: 1,
+        marginHorizontal: windowWidth * 0.02,
     },
     buttonText: {
         color: '#FFFFFF',
-        fontSize: 14,
+        fontSize: windowWidth * 0.04,
         textAlign: 'center',
     },
 });

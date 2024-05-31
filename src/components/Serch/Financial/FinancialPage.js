@@ -24,7 +24,7 @@ import Info from "./Info";
 import { ActivityIndicator, TouchableOpacity } from "react-native";
 import { Platform } from "react-native";
 
-
+let dumyPercent
 const FinancialPage = ({ crop, state, price }) => {
 
   const Cards = ({title, value}) => {

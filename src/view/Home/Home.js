@@ -77,7 +77,7 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     if(code != null){
-      list = [company, code[0], code[1]];
+      let list = [company, code[0], code[1]];
 
       navigation.navigate("search", {screen: "Search", company: list});
     }

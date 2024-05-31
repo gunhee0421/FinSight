@@ -1,6 +1,6 @@
-
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-get-random-values';
 import Home from './src/view/Home/Home';
 import {NavigationContainer, DefaultTheme} from "@react-navigation/native"
 import { createStackNavigator } from '@react-navigation/stack';
