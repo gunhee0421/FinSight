@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, StyleSheet, Dimensions, Text } from 'react-native';
+import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import moment from 'moment';
 import axios from 'axios';
 import ToggleButton from './ToggleButton';
@@ -135,7 +135,7 @@ const ExchangeRate = () => {
         fetchData('eur');
     }, []);
 
-    const displayedDates = date.map((d, index) => (index % 10 === 0 ? d : ''));
+    const displayedDates = date.map((d, index) => (index % 20 === 0 ? d : '')); // Adjusted to display fewer labels
 
     return (
         <ScrollView>
@@ -189,6 +189,7 @@ const ExchangeRate = () => {
                                 showJpy ? "원/엔 환율" : "",
                                 showEur ? "원/유로 환율" : ""
                             ]}
+                            legendStyle={styles.legend} // Applied custom legend style
                         />
                     ) : null
                 )}
@@ -219,6 +220,11 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: windowWidth * 0.04,
         textAlign: 'center',
+    },
+    legend: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
     },
 });
 
