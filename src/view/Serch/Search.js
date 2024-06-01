@@ -8,6 +8,7 @@ import getFinacialStatement from "../../api/getFinacialStatement";
 import ExchangeRate from "../Exchange_Rate/ExchangeRate"
 import getCurPrice from "../../api/getCurPrice";
 import Nav from "../../components/Serch/Financial/Navigation";
+import NewsList from "../../components/News/NewsList";
 
 
 const Header = ({title, number, percent}) => {
@@ -76,6 +77,7 @@ const Search = ({navigation, route}) => {
                 <Reactangle source={require("../../../assets/image/Rectangle.png")} alt="reactangle" />
               </HeaderView>
               {index == 1 && <FinancialPage crop={crop} state={state} price={curPrice} />}
+              {index ==2 && <NewsList/>}
               {index ==3 && <ExchangeRate />}
             </SearchView> : <LoadingView><ActivityIndicator size="large" color="red"/></LoadingView>}
       </ScrollView>

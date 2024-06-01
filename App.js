@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import 'react-native-get-random-values';
 import Home from './src/view/Home/Home';
@@ -33,3 +32,5 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+
