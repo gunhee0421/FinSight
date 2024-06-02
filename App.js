@@ -27,7 +27,7 @@ export default function App() {
         <Stack.Screen name='page2' component={Page2} options={{headerShown: false, }} />
         <Stack.Screen name='page3' component={Page3} options={{headerShown: false, }} />
         <Stack.Screen name="home" component={Home} options={{headerShown: false}} />
-        <Stack.Screen name="search" component={Search}/>
+        <Stack.Screen name="search" component={Search} />
       </Stack.Navigator>
     </NavigationContainer>
   );

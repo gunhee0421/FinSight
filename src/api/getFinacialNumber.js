@@ -10,7 +10,7 @@ const getFinacialNumber = async (finacialName) => {
       const response = await axios(
         Platform.OS === 'web'
           ? `http://localhost:8081/assets/CORPCODE.xml`
-          : `http://192.168.0.244:8081/assets/CORPCODE.xml`
+          : `http://192.168.45.44:8081/assets/CORPCODE.xml`
       );
 
       const data = await new Promise((resolve, reject) => 
@@ -47,6 +47,10 @@ const getFinacialNumber = async (finacialName) => {
       
       const result = [data, sortCode];
       console.log("finacialNumber: ", result);
+
+      if(data == undefined || sortCode == undefined) {
+        return "fail";
+      }
 
       return result;
 

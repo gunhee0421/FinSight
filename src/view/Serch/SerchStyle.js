@@ -9,6 +9,7 @@ export const SearchView = styled.View`
   justify-content: center;
   padding: 0px 0px;
   position: relative;
+  overflow-y: scroll;
 `;
 export const HeaderView = styled.View`
   align-items: center;

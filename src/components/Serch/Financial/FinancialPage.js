@@ -26,7 +26,7 @@ import { Platform } from "react-native";
 
 let dumyPercent
 const FinancialPage = ({ crop, state, price }) => {
-
+  // 카드 그리기
   const Cards = ({title, value}) => {
 
     return (
@@ -45,19 +45,20 @@ const FinancialPage = ({ crop, state, price }) => {
     );
   };
 
-  const [click, setClick] = useState(false);
-  const [title, setTitle] = useState(null);
 
-  const [totalMoney, setTotalMoney] = useState(null);
-  const [netIncon, setNetIncon] = useState(null);
-  const [allMoney, setAllMoney] = useState(null);
-  const [gainMoney, setGainMoney] = useState(null);
-  const [per, setPER] = useState(null);
-  const [pbr, setPBR] = useState(null);
-  const [eps, setEPS] = useState(null);
-  const [roe, setROE] = useState(null);
-  const [STOCK, setSTOCK] = useState(null);
-  const [percent, setPercent] = useState(null);
+  const [click, setClick] = useState(false);    // 카드 클릭 여부
+  const [title, setTitle] = useState(null);     // 카드의 전송될 타이틀
+
+  const [totalMoney, setTotalMoney] = useState(null);   // 시가총액
+  const [netIncon, setNetIncon] = useState(null);     // 당기순이익
+  const [allMoney, setAllMoney] = useState(null);     // 자본총계
+  const [gainMoney, setGainMoney] = useState(null);   // 매출액
+  const [per, setPER] = useState(null);               // PER
+  const [pbr, setPBR] = useState(null);               // PBR
+  const [eps, setEPS] = useState(null);               // EPS
+  const [roe, setROE] = useState(null);               // ROE
+  const [STOCK, setSTOCK] = useState(null);           // 적정주가
+  const [percent, setPercent] = useState(null);       // 적정주가의 상하 여부를 알려줄 퍼센트
 
 
   useEffect(() => {

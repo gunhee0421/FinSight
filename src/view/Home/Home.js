@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TouchableOpacity, Alert, ActivityIndicator } from "react-native";
+import { TouchableOpacity, Alert, ActivityIndicator, Platform } from "react-native";
 import styled from "styled-components/native";
 import getFinacialNumber from "../../api/getFinacialNumber";
 import Search from "../Serch/Search";
@@ -48,8 +48,11 @@ const Home = ({navigation}) => {
 
   const handleSearch = () => {
     if (!company.trim()) {
-      Alert.alert("기업명을 입력하세요");
-      return;
+      if (Platform.OS == "web"){
+        alert("기업명을 입력하세요");
+      } else {
+        Alert.alert("기업명을 입력하세요");
+      }
     } else{
       setEnter(true);
     }
@@ -57,13 +60,17 @@ const Home = ({navigation}) => {
 
   const handleKeyPress = () => {
     if (!company.trim()) {
-      Alert.alert("기업명을 입력하세요");
-      return;
+      if (Platform.OS == "web"){
+        alert("기업명을 입력하세요");
+      } else {
+        Alert.alert("기업명을 입력하세요");
+      }
     } else{
       handleSearch();
     }
   };
 
+  // 다음화면으로의 이동이 감지되면 회사 검색 시작
   useEffect(() => {
     const fetchData = async() => {
       const data = await getFinacialNumber(company);
@@ -76,15 +83,26 @@ const Home = ({navigation}) => {
     }
   }, [enter])
 
+  // 회사를 검색해서 code가 발급되면 데이터 전송과 페이지 이동
   useEffect(() => {
     if(code != null){
 
       const list = [company, code[0], code[1]];
 
+      // enter가 true상태이기때문에 재검색이 안됨
+      // 재검색을 위해 enter를 false로 회사이름을 빈값으로 변경
       setEnter(!enter);
       setCompany("");
 
-      navigation.navigate("search", {screen: "Search", company: list});
+      if(code == "fail") {
+        if (Platform.OS == "web") {
+          alert("존재하지 않는 기업입니다. 다시 입력해 주세요.");
+        } else{
+          Alert.alert("존재하지 않는 기업입니다. 다시 입력해 주세요.");
+        }
+      } else{
+        navigation.navigate("search", {screen: "Search", company: list});
+      }
     }
   }, [code])
 
