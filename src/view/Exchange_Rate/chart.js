@@ -1,8 +1,7 @@
-import React from 'react';
-import { Dimensions } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
-
+import {LineChart} from 'react-native-chart-kit';
+import {Dimensions} from "react-native";
 const Chart = ({ labels, datasets, legend }) => {
+    console.log('Chart Data:', datasets);
     return (
         <LineChart
             data={{
@@ -28,6 +27,11 @@ const Chart = ({ labels, datasets, legend }) => {
                     r: '3',
                     strokeWidth: '1',
                     stroke: '#3F3F3FFF',
+                },
+                legend: {
+                    width: 300, // Increased width
+                    textWrap: true,
+                    fontSize: 10, // Reduced font size
                 },
             }}
             bezier
