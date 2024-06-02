@@ -28,7 +28,11 @@ const Chart = ({ labels, datasets, legend }) => {
                     strokeWidth: '1',
                     stroke: '#3F3F3FFF',
                 },
-                legendFontSize: 10,
+                legend: {
+                    width: 300, // Increased width
+                    textWrap: true,
+                    fontSize: 10, // Reduced font size
+                },
             }}
             bezier
             style={{

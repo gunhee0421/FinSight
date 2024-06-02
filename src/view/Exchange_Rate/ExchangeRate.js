@@ -186,11 +186,11 @@ const ExchangeRate = () => {
                                 }
                             ]}
                             legend={[
-                                showExchange ? "원/달러 환율" : "",
-                                showKospi ? "KOSPI 지수" : "",
-                                showKosdaq ? "KOSDAQ 지수" : "",
-                                showJpy ? "원/엔 환율" : "",
-                                showEur ? "원/유로 환율" : ""
+                                showExchange ? "원/달러" : "",
+                                showKospi ? "KOSPI" : "",
+                                showKosdaq ? "KOSDAQ" : "",
+                                showJpy ? "원/엔" : "",
+                                showEur ? "원/유로" : ""
                             ]}
                         />
                     ) : (
