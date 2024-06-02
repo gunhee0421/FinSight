@@ -160,7 +160,7 @@ export const FooterView = styled.View`
   align-self: stretch;
 `
 export const FooterText = styled.Text`
-  width: 112px;
+  width: 150px;
   height: 34px;
   flex-shrink: 0;
   text-align: center;
