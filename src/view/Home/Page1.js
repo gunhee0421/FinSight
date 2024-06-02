@@ -7,6 +7,25 @@ import Button from "../../components/Button";
 const Page1 = ({ navigation }) => {
   const [visited, setVisited] = useState(false);
 
+  useEffect( () => {
+    const fetchData = async() => {
+      const page1 = await AsyncStorage.getItem("page1Visited");
+      const page2 = await AsyncStorage.getItem("page2Visited");
+      const page3 = await AsyncStorage.getItem("page3Visited");
+
+      if(page1){
+        await AsyncStorage.removeItem("page1Visited");
+      }
+      if(page2) {
+        await AsyncStorage.removeItem("page2Visited");
+      }
+      if(page3){
+        await AsyncStorage.removeItem("page3Visited");
+      }
+    }
+    fetchData();
+  }, [])
+
   useEffect(() => {
     const checkVisited = async () => {
       const hasVisited = await AsyncStorage.getItem("page1Visited");

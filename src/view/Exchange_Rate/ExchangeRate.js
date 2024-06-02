@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, ScrollView, StyleSheet, Text} from 'react-native';
 import moment from 'moment';
 import axios from 'axios';
 import ToggleButton from './ToggleButton';
 import LoadingIndicator from './LoadingIndicator';
-import Chart from './chart';
+import Chart from "./chart";
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 const ExchangeRate = () => {
     const [exchangeData, setExchangeData] = useState([]);
@@ -51,6 +49,8 @@ const ExchangeRate = () => {
                 }
             });
 
+            console.log(`Initial response for ${type}:`, response.data); // Add this line to log the initial response
+
             if (response.data && response.data.StatisticSearch) {
                 const listTotalCount = parseInt(response.data.StatisticSearch.list_total_count);
                 const listCount = Math.ceil(listTotalCount / 100);
@@ -84,6 +84,7 @@ const ExchangeRate = () => {
                     try {
                         const responses = await Promise.all(requests);
                         responses.forEach(paginatedResponse => {
+                            console.log(`Paginated response for ${type}:`, paginatedResponse.data); // Add this line to log paginated responses
                             if (paginatedResponse.data && paginatedResponse.data.StatisticSearch && paginatedResponse.data.StatisticSearch.row) {
                                 rows = rows.concat(paginatedResponse.data.StatisticSearch.row);
                             }
@@ -117,6 +118,8 @@ const ExchangeRate = () => {
                     } else if (type === 'eur') {
                         setEurData(dataValues);
                     }
+                    console.log(`${type} Data Loaded:`, dataValues);
+                    console.log('Dates Loaded:', dates);
                     setDate(dates);
                 }
                 setLoading(false);
@@ -135,7 +138,7 @@ const ExchangeRate = () => {
         fetchData('eur');
     }, []);
 
-    const displayedDates = date.map((d, index) => (index % 20 === 0 ? d : '')); // Adjusted to display fewer labels
+    const displayedDates = date.map((d, index) => (index % 20 === 0 ? d : ''));
 
     return (
         <ScrollView>
@@ -152,7 +155,7 @@ const ExchangeRate = () => {
                 {loading ? (
                     <LoadingIndicator />
                 ) : (
-                    exchangeData.length > 0 && kospiData.length > 0 && kosdaqData.length > 0 && jpyData.length > 0 && eurData.length > 0 ? (
+                    exchangeData.length > 0 || kospiData.length > 0 || kosdaqData.length > 0 || jpyData.length > 0 || eurData.length > 0 ? (
                         <Chart
                             labels={displayedDates}
                             datasets={[
@@ -173,12 +176,12 @@ const ExchangeRate = () => {
                                 },
                                 {
                                     data: showJpy ? jpyData : [],
-                                    color: (opacity = 1) => `rgba(244, 215, 65, ${opacity})`,
+                                    color: (opacity = 1) => `rgba(65, 244, 161, ${opacity})`,
                                     strokeWidth: 2
                                 },
                                 {
                                     data: showEur ? eurData : [],
-                                    color: (opacity = 1) => `rgba(65, 105, 244, ${opacity})`,
+                                    color: (opacity = 1) => `rgba(244, 211, 65, ${opacity})`,
                                     strokeWidth: 2
                                 }
                             ]}
@@ -189,43 +192,30 @@ const ExchangeRate = () => {
                                 showJpy ? "원/엔 환율" : "",
                                 showEur ? "원/유로 환율" : ""
                             ]}
-                            legendStyle={styles.legend} // Applied custom legend style
                         />
-                    ) : null
+                    ) : (
+                        <Text>No data available</Text>
+                    )
                 )}
             </View>
         </ScrollView>
     );
 };
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: windowWidth * 0.05,
+        padding: 16,
+        backgroundColor: 'white'
     },
     buttonRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginBottom: windowHeight * 0.02,
+        marginVertical: 10
     },
     button: {
-        backgroundColor: '#3F3F3F',
-        paddingVertical: windowHeight * 0.015,
-        paddingHorizontal: windowWidth * 0.1,
-        borderRadius: 5,
         flex: 1,
-        marginHorizontal: windowWidth * 0.02,
-    },
-    buttonText: {
-        color: '#FFFFFF',
-        fontSize: windowWidth * 0.04,
-        textAlign: 'center',
-    },
-    legend: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-    },
+        marginHorizontal: 5
+    }
 });
 
 export default ExchangeRate;

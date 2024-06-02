@@ -19,6 +19,7 @@ const SearchContainer = styled.View`
   width: 315px;
   height: 55px;
 `;
+
 const SearchText = styled.TextInput`
   width: 315px;
   height: 55px;
@@ -77,7 +78,11 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     if(code != null){
-      let list = [company, code[0], code[1]];
+
+      const list = [company, code[0], code[1]];
+
+      setEnter(!enter);
+      setCompany("");
 
       navigation.navigate("search", {screen: "Search", company: list});
     }

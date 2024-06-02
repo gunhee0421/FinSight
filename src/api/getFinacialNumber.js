@@ -7,15 +7,10 @@ import { Platform } from "react-native";
 // 고유번호 xml -> json으로 변환해서 특정 기업 한글로 입력시 그 기업의 고유번호 반환하는 함수입니다.
 const getFinacialNumber = async (finacialName) => {
     try{
-
-      // const response = await axios(`http://localhost:8081/assets/CORPCODE.xml`);     // web 기준
-      
-      // const response = await axios(`http://10.105.0.245:8081/assets/CORPCODE.xml`);      // 앱 기준
-
       const response = await axios(
         Platform.OS === 'web'
           ? `http://localhost:8081/assets/CORPCODE.xml`
-          : `http://192.168.0.34:8081/assets/CORPCODE.xml`
+          : `http://192.168.0.244:8081/assets/CORPCODE.xml`
       );
 
       const data = await new Promise((resolve, reject) => 
