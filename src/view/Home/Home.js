@@ -97,8 +97,10 @@ const Home = ({navigation}) => {
       if(code == "fail") {
         if (Platform.OS == "web") {
           alert("존재하지 않는 기업입니다. 다시 입력해 주세요.");
+          setCode(null);
         } else{
           Alert.alert("존재하지 않는 기업입니다. 다시 입력해 주세요.");
+          setCode(null);
         }
       } else{
         navigation.navigate("search", {screen: "Search", company: list});

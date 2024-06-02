@@ -48,12 +48,11 @@ const getFinacialNumber = async (finacialName) => {
       const result = [data, sortCode];
       console.log("finacialNumber: ", result);
 
-      if(data == undefined || sortCode == undefined) {
+      if((data == undefined || data == " "  || data == null )|| (sortCode == undefined || sortCode == null || sortCode == " ")) {
         return "fail";
+      } else{
+        return result;
       }
-
-      return result;
-
     } catch(error) {
       console.log(error);
     }
