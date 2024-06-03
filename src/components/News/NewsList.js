@@ -30,6 +30,7 @@ const NewsList = ({ navigation, title }) => {
             params: {
               q: title,
               from: formattedSevenDaysAgo,
+              to: formattedSevenDaysAgo,
               sortBy: 'popularity',
               apiKey: 'd2c59ad03aa64c6ab4b98bc563945db3'
             }

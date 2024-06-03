@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TouchableOpacity, Alert, ActivityIndicator, Platform } from "react-native";
+import { TouchableOpacity, Alert, ActivityIndicator, Platform, View, Image } from "react-native";
 import styled from "styled-components/native";
 import getFinacialNumber from "../../api/getFinacialNumber";
 import Search from "../Serch/Search";
@@ -8,9 +8,10 @@ import { LoadingView } from "../Serch/SerchStyle";
 const ViewSty = styled.View`
   display: flex;
   height: 100%;
-  padding: 0px 41px;
   justify-content: center;
   gap: 10px;
+  padding: 21px 41px 110px 41px;
+  flex-direction: column;
   background-color: #fff;
 `;
 
@@ -110,18 +111,22 @@ const Home = ({navigation}) => {
 
   return (
     <ViewSty>
-      {!enter ? <SearchContainer>
-        <SearchText
-          placeholder="기업명을 입력하세요..."
-          placeholderTextColor="#3498db"
-          value={company}
-          onChangeText={setCompany}
-          onSubmitEditing={handleKeyPress}
-        />
-        <TouchableImg onPress={handleSearch}>
-          <SearchImg source={require("../../../assets/search.png")} />
-        </TouchableImg>
-      </SearchContainer> : <LoadingView><ActivityIndicator size="large" color="red" /></LoadingView>}
+      {!enter ? <View>
+        <Image
+          source={require("../../../assets/Logo.png")}
+          style={{width: 310, height: 150}} ></Image>
+        <SearchContainer>
+          <SearchText
+            placeholder="기업명을 입력하세요..."
+            placeholderTextColor="#3498db"
+            value={company}
+            onChangeText={setCompany}
+            onSubmitEditing={handleKeyPress}
+          />
+          <TouchableImg onPress={handleSearch}>
+            <SearchImg source={require("../../../assets/search.png")} />
+          </TouchableImg>
+        </SearchContainer></View> : <LoadingView><ActivityIndicator size="large" color="red" /></LoadingView>}
     </ViewSty>
   );
 };

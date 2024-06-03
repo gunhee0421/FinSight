@@ -12,9 +12,9 @@ const NewsItem = ({ article }) => {
   const { title, description, url, urlToImage } = article;
 
   return (
-    <NewItemBlock>
+    <NewItemBlock onPress={() => Linking.openURL(url)}>
       {urlToImage && (
-        <Thumbnail onTouchEnd={() => Linking.openURL(url)}>
+        <Thumbnail>
           <NewsImage source={{ uri: urlToImage }}/>
         </Thumbnail>
       )}
@@ -26,7 +26,7 @@ const NewsItem = ({ article }) => {
   );
 };
 
-const NewItemBlock = styled.View`
+const NewItemBlock = styled.TouchableOpacity`
   flex-direction: row;
   margin-bottom: 30px;
 `
