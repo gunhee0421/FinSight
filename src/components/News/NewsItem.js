@@ -42,13 +42,11 @@ const Contents = styled.View`
   justify-content: center;
 `
 const Title = styled.Text`
-  border: 1px solid pink;
   font-weight: bold;
   color: black;
-  font-size: 16;
+  font-size: 16px;
 `
 const Description = styled.Text`
-  border: 1px solid pink;
   font-size: 14px;
   color: black;
   margin-top: 5px;

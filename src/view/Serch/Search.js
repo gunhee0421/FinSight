@@ -69,26 +69,21 @@ const Search = ({navigation, route}) => {
   }, [navigation, curPrice])
 
   return(
-      <ScrollView contentContainerStyle={ScrollStyle.container}>
+      <>
         {state != null && curPrice != null ?
             <SearchView>
               <HeaderView>
                 <Nav index={index} setIndex={setIndex} />
                 <Reactangle source={require("../../../assets/image/Rectangle.png")} alt="reactangle" />
               </HeaderView>
-              {index == 1 && <FinancialPage crop={crop} state={state} price={curPrice} />}
-              {index ==2 && <NewsList title = {company[0]} />}
-              {index ==3 && <ExchangeRate />}
+              <ScrollView style={{width: "100%"}}>
+                {index == 1 && <FinancialPage crop={crop} state={state} price={curPrice} />}
+                {index ==2 && <NewsList title = {company[0]} />}
+                {index ==3 && <ExchangeRate />}
+              </ScrollView>
             </SearchView> : <LoadingView><ActivityIndicator size="large" color="red"/></LoadingView>}
-      </ScrollView>
+      </>
   );
 }
-
-// 스크롤뷰 만들기 위한 스타일
-const ScrollStyle = StyleSheet.create({
-  container: {
-    overflowY: 'scroll',
-  },
-})
 
 export default Search;

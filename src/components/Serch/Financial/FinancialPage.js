@@ -15,7 +15,8 @@ import {
   FooterBoxText,
   FooterText,
   Reactangle,
-  LoadingView
+  LoadingView,
+  FinacialView
 } from "../../../view/Serch/SerchStyle";
 import getStockNumber from "../../../api/getStockNumber";
 import BigNumber from "bignumber.js";
@@ -134,7 +135,7 @@ const FinancialPage = ({ crop, state, price }) => {
 
   return (
     <>
-      {STOCK != null ? <>
+      {STOCK != null ? <FinacialView>
         <BodyView>
           <BodyTitle>
             <BodyTitleText>{title != null ? title : "투자 지표"}</BodyTitleText>
@@ -175,7 +176,7 @@ const FinancialPage = ({ crop, state, price }) => {
             {percent != null &&  <FooterBoxText percent={percent}>{`${STOCK}`}</FooterBoxText>}
           </FooterBox>
         </FooterView>
-      </> : <LoadingView><ActivityIndicator size="large" color="red" /></LoadingView>}
+      </FinacialView> : <LoadingView><ActivityIndicator size="large" color="red" /></LoadingView>}
     </>
   );
 };

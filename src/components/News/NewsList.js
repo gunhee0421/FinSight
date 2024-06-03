@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { LoadingView } from '../../view/Serch/SerchStyle';
 import axios from 'axios';
 import NewsItem from './NewsItem';
 import styled from 'styled-components/native';
+import { key } from '../../api/API';
 
 const NewsList = ({ navigation, title }) => {
   // articles: 뉴스 기사 데이터를 저장하는 상태.
@@ -18,13 +20,19 @@ const NewsList = ({ navigation, title }) => {
       if (!query) return; // 검색어가 없으면 함수를 종료
       setLoading(true); // 로딩 상태를 true
       try {
+        const today = new Date();
+        const sevenDaysAgo = new Date(today.getTime() - (7 * 24 * 60 * 60 * 1000));
+        const formattedToday = today.toISOString().slice(0, 10);
+        const formattedSevenDaysAgo = sevenDaysAgo.toISOString().slice(0, 10);
+
         const response = await axios.get(
           'https://newsapi.org/v2/everything', {
             params: {
-              q: title, // 사용자가 입력한 검색어
-              from: '2024-05-29', // 검색 시작 날짜
-              sortBy: 'popularity', // 결과를 인기도 순으로 정렬
-              apiKey: 'd2c59ad03aa64c6ab4b98bc563945db3' // API 키
+              q: title,
+              from: formattedSevenDaysAgo,
+              to: formattedToday,
+              sortBy: 'popularity',
+              apiKey: 'd2c59ad03aa64c6ab4b98bc563945db3'
             }
           }
         );
@@ -35,20 +43,20 @@ const NewsList = ({ navigation, title }) => {
       setLoading(false);
     };
     fetchData();
-  }, [])
+  }, [title])
   return (
     <Container>
       {loading ? (
-        <ItemContainer>
-          <ActivityIndicator size="large" />
-        </ItemContainer>
+        <LoadingView>
+          <ActivityIndicator size="large" color="red"/>
+        </LoadingView>
       ) : (
         <NewsContainer>
-          {articles && (
-            articles.map((article) => (
-              <NewsItem key={article.url} article={article} />
+          {articles ? (
+            articles.map((article, index) => (
+              <NewsItem key={`${article.url}-${index}`} article={article} />
             ))
-          )}
+          ): <Text>뉴스가 없습니다.</Text>}
         </NewsContainer>
       )}
     </Container>
@@ -56,12 +64,10 @@ const NewsList = ({ navigation, title }) => {
 };
 
 const Container = styled.View`
-  height: 100vh;
   flex: 1;
   padding-top: 10px;
 `
 const NewsContainer = styled.View`
-  height: 100vh;
   flex: 1;
 `
 const ItemContainer = styled.View`
