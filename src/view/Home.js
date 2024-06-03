@@ -1,14 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from "react";
-import { TouchableOpacity, Alert } from "react-native";
+import { TouchableOpacity, Alert, Image } from "react-native";
 import styled from "styled-components";
 import getFinacialNumber from "../api/getFinacialNumber";
 
 const ViewSty = styled.View`
   display: flex;
   height: 100%;
-  padding: 0px 41px;
-  justify-content: center;
+  padding: 21px 41px 110px 41px; //추가
+  justify-content: center; //추가
+  flex-direction: column; //추가
   gap: 10px;
   background-color: #fff;
 `;
@@ -71,6 +72,11 @@ const Home = (props) => {
 
   return (
     <ViewSty>
+      <Image
+        source={require("../../assets/Logo.png")}
+        style={{ width: 310, height: 150 }}
+      />{" "}
+      //추가
       <SearchContainer>
         <Search
           placeholder="기업명을 입력하세요..."
