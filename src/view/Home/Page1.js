@@ -7,6 +7,16 @@ import Button from "../../components/Button";
 const Page1 = ({ navigation }) => {
   const [visited, setVisited] = useState(false);
 
+  // 페이지 마운트시 모든 설명 페이지 접속 기록 삭제 : 앱을 닫았다 열시에도 안열림 로컬 스토리지에 저장되어서
+  useEffect( () => {
+    const fetchData = async() => {
+      await AsyncStorage.removeItem("page1Visited");
+      await AsyncStorage.removeItem("page2Visited");
+      await AsyncStorage.removeItem("page3Visited");
+    }
+    fetchData();
+  }, [])
+
   useEffect(() => {
     const checkVisited = async () => {
       const hasVisited = await AsyncStorage.getItem("page1Visited");

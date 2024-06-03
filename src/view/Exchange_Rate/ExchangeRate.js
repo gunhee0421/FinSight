@@ -176,12 +176,12 @@ const ExchangeRate = () => {
                                 },
                                 {
                                     data: showJpy ? jpyData : [],
-                                    color: (opacity = 1) => `rgba(244, 215, 65, ${opacity})`,
+                                    color: (opacity = 1) => `rgba(65, 244, 161, ${opacity})`,
                                     strokeWidth: 2
                                 },
                                 {
                                     data: showEur ? eurData : [],
-                                    color: (opacity = 1) => `rgba(65, 105, 244, ${opacity})`,
+                                    color: (opacity = 1) => `rgba(244, 211, 65, ${opacity})`,
                                     strokeWidth: 2
                                 }
                             ]}

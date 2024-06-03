@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { useContext, useEffect, useState } from "react";
 import {SearchView, HeaderView, Reactangle, HeaderText, HeaderNumber, BodyView, LoadingView} from "./SerchStyle";
-import { ActivityIndicator, ScrollView } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet } from "react-native";
 import FinancialPage from "../../components/Serch/Financial/FinancialPage";
 import getFinacialNumber from "../../api/getFinacialNumber";
 import getFinacialStatement from "../../api/getFinacialStatement";
@@ -24,12 +24,12 @@ const Header = ({title, number, percent}) => {
 };
 
 const Search = ({navigation, route}) => {
-  const [index, setIndex] = useState(1);
-  const [crop, setCrop] = useState(null);
-  const [state, setState] = useState(null);
-  const [curPrice , setCurPrice] = useState(null);
+  const [index, setIndex] = useState(1);  // 현재 nav 위치
+  const [crop, setCrop] = useState(null);   // crop : 기업의 고유번호
+  const [state, setState] = useState(null);   // 기업의 재무재표
+  const [curPrice , setCurPrice] = useState(null);    // 기업의 현재 가격
 
-  const {company} = route.params;
+  const {company} = route.params;   //기업의 이름
 
   useEffect(() => {
     let list = [company[1], company[2]]
@@ -69,18 +69,20 @@ const Search = ({navigation, route}) => {
   }, [navigation, curPrice])
 
   return(
-      <ScrollView >
+      <>
         {state != null && curPrice != null ?
             <SearchView>
               <HeaderView>
                 <Nav index={index} setIndex={setIndex} />
                 <Reactangle source={require("../../../assets/image/Rectangle.png")} alt="reactangle" />
               </HeaderView>
-              {index == 1 && <FinancialPage crop={crop} state={state} price={curPrice} />}
-              {index ==2 && <NewsList/>}
-              {index ==3 && <ExchangeRate />}
+              <ScrollView style={{width: "100%"}}>
+                {index == 1 && <FinancialPage crop={crop} state={state} price={curPrice} />}
+                {index ==2 && <NewsList title = {company[0]} />}
+                {index ==3 && <ExchangeRate />}
+              </ScrollView>
             </SearchView> : <LoadingView><ActivityIndicator size="large" color="red"/></LoadingView>}
-      </ScrollView>
+      </>
   );
 }
 

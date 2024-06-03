@@ -1,114 +1,79 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { LoadingView } from '../../view/Serch/SerchStyle';
 import axios from 'axios';
-import NewsItem from './NewsItem'; // NewsItem 컴포넌트를 임포트합니다.
+import NewsItem from './NewsItem';
+import styled from 'styled-components/native';
+import { key } from '../../api/API';
 
-const NewsList = ({ navigation }) => {
+const NewsList = ({ navigation, title }) => {
+  // articles: 뉴스 기사 데이터를 저장하는 상태.
+  // loading: 데이터 로딩 여부를 나타내는 상태.
+  // query: 사용자가 입력하는 검색 쿼리를 저장하는 상태.
   const [articles, setArticles] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(title);
 
-  const fetchData = async () => {
-    if (!query) return;
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        'https://newsapi.org/v2/everything', {
-          params: {
-            q: query,
-            from: '2024-05-29',
-            sortBy: 'popularity',
-            apiKey: 'd2c59ad03aa64c6ab4b98bc563945db3'
+  // fetchData 함수는 API를 호출하여 뉴스 데이터를 가져오는 비동기 함수
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!query) return; // 검색어가 없으면 함수를 종료
+      setLoading(true); // 로딩 상태를 true
+      try {
+        const today = new Date();
+        const sevenDaysAgo = new Date(today.getTime() - (31 * 24 * 60 * 60 * 1000));
+        const formattedToday = today.toISOString().slice(0, 10);
+        const formattedSevenDaysAgo = sevenDaysAgo.toISOString().slice(0, 10);
+
+        const response = await axios.get(
+          'https://newsapi.org/v2/everything', {
+            params: {
+              q: title,
+              from: formattedSevenDaysAgo,
+              to: formattedSevenDaysAgo,
+              sortBy: 'popularity',
+              apiKey: 'd2c59ad03aa64c6ab4b98bc563945db3'
+            }
           }
-        }
-      );
-      setArticles(response.data.articles);
-    } catch (e) {
-      console.error(e);
-    }
-    setLoading(false);
-  };
-
+        );
+        setArticles(response.data.articles);
+      } catch (e) {
+        console.error(e); 
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, [title])
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Text style={styles.backButtonText}>뒤로</Text>
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>뉴스</Text>
-      </View>
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="검색할 키워드를 입력하세요"
-          value={query}
-          onChangeText={setQuery}
-        />
-        <Button title="검색" onPress={fetchData} />
-      </View>
+    <Container>
       {loading ? (
-        <View style={styles.centered}>
-          <ActivityIndicator size="large" />
-        </View>
+        <LoadingView>
+          <ActivityIndicator size="large" color="red"/>
+        </LoadingView>
       ) : (
-        <ScrollView style={styles.newsListBlock}>
+        <NewsContainer>
           {articles ? (
-            articles.map((article) => (
-              <NewsItem key={article.url} article={article} />
+            articles.map((article, index) => (
+              <NewsItem key={`${article.url}-${index}`} article={article} />
             ))
-          ) : (
-            <Text>검색 결과가 없습니다.</Text>
-          )}
-        </ScrollView>
+          ): <Text>뉴스가 없습니다.</Text>}
+        </NewsContainer>
       )}
-    </View>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 10,
-    paddingTop: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-    paddingBottom: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: 'gray',
-  },
-  backButton: {
-    marginRight: 10,
-  },
-  backButtonText: {
-    fontSize: 18,
-    color: 'blue',
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  input: {
-    flex: 1,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginRight: 10,
-    paddingHorizontal: 10,
-  },
-  newsListBlock: {
-    flex: 1,
-  },
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+const Container = styled.View`
+  flex: 1;
+  padding-top: 10px;
+`
+const NewsContainer = styled.View`
+  flex: 1;
+`
+const ItemContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`
 
 export default NewsList;
