@@ -36,7 +36,7 @@ export const HeaderText = styled.Text`
   text-align: center;
 `
 export const HeaderNumber = styled.Text`
-  color: ${props => props.percent > 0 ? "red" : "#1400ff"};
+  color: ${props => props.percent > 0 ? "red" : props.percent == 0 ? "black" : "#1400ff"};
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0;
@@ -150,21 +150,25 @@ export const CardTop = styled.View`
 `
 export const FooterView = styled.View`
   display: flex;
-  height: 158px;
   padding: 21px 25px;
   margin-bottom: 40px;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   flex-shrink: 0;
   align-self: stretch;
+`
+export const FooterTextView = styled.View`
+  display: flex;
+  width: 340px;
+  align-items: flex-start;
 `
 export const FooterText = styled.Text`
   width: 150px;
   height: 34px;
   flex-shrink: 0;
-  text-align: center;
+  text-align: start;
   font-family: Inter;
   font-size: 26px;
   font-style: normal;
@@ -174,11 +178,12 @@ export const FooterText = styled.Text`
 export const FooterBox = styled.View`
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   height: 120px;
-  align-self: stretch;
+  
   border-radius: 15px;
+  width: 340px;
   background-color: #F2F2F2;
 `
 export const FooterBoxText = styled.Text`

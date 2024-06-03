@@ -21,7 +21,7 @@ const NewsList = ({ navigation, title }) => {
       setLoading(true); // 로딩 상태를 true
       try {
         const today = new Date();
-        const sevenDaysAgo = new Date(today.getTime() - (7 * 24 * 60 * 60 * 1000));
+        const sevenDaysAgo = new Date(today.getTime() - (31 * 24 * 60 * 60 * 1000));
         const formattedToday = today.toISOString().slice(0, 10);
         const formattedSevenDaysAgo = sevenDaysAgo.toISOString().slice(0, 10);
 
@@ -30,7 +30,6 @@ const NewsList = ({ navigation, title }) => {
             params: {
               q: title,
               from: formattedSevenDaysAgo,
-              to: formattedToday,
               sortBy: 'popularity',
               apiKey: 'd2c59ad03aa64c6ab4b98bc563945db3'
             }
