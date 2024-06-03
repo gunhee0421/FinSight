@@ -7,9 +7,9 @@ import getFinacialNumber from "../api/getFinacialNumber";
 const ViewSty = styled.View`
   display: flex;
   height: 100%;
-  padding: 21px 41px 110px 41px; //추가
-  justify-content: center; //추가
-  flex-direction: column; //추가
+  padding: 21px 41px 110px 41px;
+  justify-content: center;
+  flex-direction: column;
   gap: 10px;
   background-color: #fff;
 `;
@@ -75,8 +75,7 @@ const Home = (props) => {
       <Image
         source={require("../../assets/Logo.png")}
         style={{ width: 310, height: 150 }}
-      />{" "}
-      //추가
+      />
       <SearchContainer>
         <Search
           placeholder="기업명을 입력하세요..."
