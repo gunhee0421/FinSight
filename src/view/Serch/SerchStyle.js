@@ -9,6 +9,8 @@ export const SearchView = styled.View`
   justify-content: center;
   padding: 0px 0px;
   position: relative;
+  overflow-y: scroll;
+  height: 100vh;
 `;
 export const HeaderView = styled.View`
   align-items: center;
@@ -159,7 +161,7 @@ export const FooterView = styled.View`
   align-self: stretch;
 `
 export const FooterText = styled.Text`
-  width: 112px;
+  width: 150px;
   height: 34px;
   flex-shrink: 0;
   text-align: center;
@@ -180,7 +182,7 @@ export const FooterBox = styled.View`
   background-color: #F2F2F2;
 `
 export const FooterBoxText = styled.Text`
-  color: ${props => props.percent > 0 ? "red" : "#1400ff"};
+  color: ${props => props.percent > 0 ? "red" : props.percent == 0 ? "black" : "#1400ff"};
   width: 70%;
   text-align: right;
   font-family: Inter;
@@ -215,4 +217,8 @@ export const LoadingView = styled.View`
   margin-top: 100px;
   align-items: center;
   justify-content: center;
+`
+export const FinacialView = styled.View`
+  width: 100vw;
+  margin-bottom: 30px;
 `
